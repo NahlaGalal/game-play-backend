@@ -1,21 +1,17 @@
 import express from "express";
-import { Sequelize } from "sequelize";
+import cors from "cors";
+import bodyParser from "body-parser";
+// Routes
+import routes from "./routes";
+// Instance
+import { sequelize } from "./util/instance";
 
 const app = express();
 
-export const sequelize = new Sequelize("game_play", "Nahla", "gt-b3410", {
-  port: 5432,
-  dialect: "postgres",
-  logging: false
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
+app.use(routes);
+
+sequelize.sync().then(() => {
+  app.listen(4000, () => console.log("Connected"));
 });
-
-(async () => {
-  try {
-    await sequelize.sync();
-    console.log("Connection has been established successfully.");
-  } catch (error) {
-    console.error("Unable to connect to the database:", error);
-  }
-})();
-
-app.listen(4000, () => console.log("Connected"));

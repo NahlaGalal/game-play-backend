@@ -1,0 +1,23 @@
+{
+  "name": "well-played-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.11",
+    "@types/node": "^14.14.27",
+    "@types/pg": "^7.14.9",
+    "@types/sequelize": "^4.28.9",
+    "express": "^4.17.1",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.5.0",
+    "typescript": "^4.1.5"
+  }
+}

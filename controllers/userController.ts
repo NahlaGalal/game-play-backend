@@ -59,5 +59,11 @@ export const loginUser = async (req: Request, res: Response) => {
 };
 
 export const logoutUser = async (req: Request, res: Response) => {
-  
+  const userId = res.locals.userId;
+  try {
+    await User.update({ token: "" }, { where: { id: userId } });
+    res.json({ isFailed: false, errors: {}, data: { success: true } });
+  } catch (errors) {
+    res.json({ isFailed: true, errors, data: {} });
+  }
 };

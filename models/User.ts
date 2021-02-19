@@ -15,8 +15,10 @@ interface IUser {
   lName: string;
   email: string;
   password: string;
-  imgUrl: string;
   token: string;
+  imgType: string;
+  imgName: string;
+  imgData: Blob;
 }
 
 interface UserCreationAttributes extends Optional<IUser, "id"> {}
@@ -29,8 +31,10 @@ export default class User
   public lName!: string;
   public email!: string;
   public password!: string;
-  public imgUrl!: string;
   public token!: string;
+  public imgType!: string;
+  public imgName!: string;
+  public imgData!: Blob;
 
   public addToCart!: HasManyAddAssociationMixin<Cart, number>;
   public getCart!: HasManyGetAssociationsMixin<Cart>;
@@ -62,8 +66,10 @@ User.init(
       unique: true,
     },
     password: DataTypes.STRING(50),
-    imgUrl: DataTypes.STRING,
     token: DataTypes.STRING,
+    imgType: DataTypes.STRING,
+    imgName: DataTypes.STRING,
+    imgData: DataTypes.BLOB("long")
   },
   { sequelize, tableName: "users" }
 );

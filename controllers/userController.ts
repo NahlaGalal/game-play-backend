@@ -2,10 +2,29 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
 
+interface IMulter extends Request {
+  file: any;
+}
+
 export const signupUser = async (req: Request, res: Response) => {
-  const { fName, lName, email, password, imgUrl } = req.body;
+  const { fName, lName, email, password } = req.body;
+  const imgType = (req as IMulter).file.mimetype;
+  const imgName = (req as IMulter).file.originalname;
+  const imgData = (req as IMulter).file.buffer;
+
+  console.log((req as IMulter).file)
+
   try {
-    await User.create({ fName, lName, email, password, imgUrl, token: "" });
+    await User.create({
+      fName,
+      lName,
+      email,
+      password,
+      imgType,
+      imgName,
+      imgData,
+      token: "",
+    });
     res.json({ isFailed: false, errors: {}, data: { success: true } });
   } catch (err) {
     res.json({
@@ -37,7 +56,7 @@ export const loginUser = async (req: Request, res: Response) => {
         errors: {},
         data: {
           name: `${user.fName} ${user.lName}`,
-          img: user.imgUrl,
+          // img: user.imgUrl,
           token,
         },
       });

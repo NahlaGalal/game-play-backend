@@ -9,10 +9,7 @@ interface IMulter extends Request {
 export const signupUser = async (req: Request, res: Response) => {
   const { fName, lName, email, password } = req.body;
   const imgType = (req as IMulter).file.mimetype;
-  const imgName = (req as IMulter).file.originalname;
-  const imgData = (req as IMulter).file.buffer;
-
-  console.log((req as IMulter).file)
+  const imgName = (req as IMulter).file.path;
 
   try {
     await User.create({
@@ -22,7 +19,6 @@ export const signupUser = async (req: Request, res: Response) => {
       password,
       imgType,
       imgName,
-      imgData,
       token: "",
     });
     res.json({ isFailed: false, errors: {}, data: { success: true } });
@@ -39,7 +35,7 @@ export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({
-      attributes: ["id", "fName", "lName", "imgUrl"],
+      attributes: ["id", "fName", "lName", "imgName"],
       where: {
         email,
         password,
@@ -56,7 +52,7 @@ export const loginUser = async (req: Request, res: Response) => {
         errors: {},
         data: {
           name: `${user.fName} ${user.lName}`,
-          // img: user.imgUrl,
+          image: user.imgName,
           token,
         },
       });

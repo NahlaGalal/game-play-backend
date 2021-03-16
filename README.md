@@ -1,6 +1,6 @@
-# Game Play
+# Well Played
 
-This project is the backend api of Game-play project
+This project is the backend api of Well played project
 You can find front end project [here](https://github.com/NahlaGalal/game-play-frontend)
 It provides authentication routes
 and allows the user to add, remove and get games in downloads
